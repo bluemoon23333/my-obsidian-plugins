@@ -1,0 +1,11 @@
+{
+	"id": "delete-specified-content",
+	"name": "删除指定内容",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "删除当前文件中符合指定规则（正则或起止标记）的内容",
+	"author": "xuhua",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}

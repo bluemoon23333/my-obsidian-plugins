@@ -1,0 +1,11 @@
+{
+	"id": "move-tags-to-frontmatter",
+	"name": "Move Tags to Frontmatter",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Move inline tags (#tag) into a frontmatter field.",
+	"author": "Your Name",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}

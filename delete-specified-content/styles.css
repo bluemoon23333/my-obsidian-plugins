@@ -1,0 +1,55 @@
+/* 设置面板样式 */
+.delete-rule-item {
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 12px;
+	background: var(--background-primary-alt);
+}
+
+.delete-rule-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.delete-rule-title {
+	font-weight: 600;
+	flex: 1;
+}
+
+.delete-rule-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.delete-rule-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.delete-rule-row label {
+	min-width: 80px;
+	font-size: var(--font-ui-small);
+}
+
+.delete-rule-row input,
+.delete-rule-row textarea,
+.delete-rule-row select {
+	flex: 1;
+}
+
+.delete-rule-actions {
+	display: flex;
+	gap: 8px;
+}
+
+.delete-rule-hint {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	margin-top: 4px;
+}
