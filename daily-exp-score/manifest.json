@@ -1,0 +1,11 @@
+{
+	"id": "daily-exp-score",
+	"name": "每日经验值计算",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "根据日记中的时间记录、习惯打卡与自我评估，计算每日时间安排的经验值得分。",
+	"author": "Your Name",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}

@@ -1,9 +1,10 @@
 # my-obsidian-plugins 📝
 
-欢迎来到 **my-obsidian-plugins**！这是一个个人 Obsidian 插件合集，汇集了小巧实用的工具，帮助你更高效地清理笔记、整理标签。✨
+欢迎来到 **my-obsidian-plugins**！这是一个个人 Obsidian 插件合集，汇集了小巧实用的工具，帮助你更高效地清理笔记、整理标签、量化每日成长。✨
 
 > 🗑️ **删除指定内容** —— 按正则或起止标记批量删除匹配内容  
-> 🏷️ **Move Tags to Frontmatter** —— 把正文中的 `#标签` 一键迁移到 frontmatter
+> 🏷️ **Move Tags to Frontmatter** —— 把正文中的 `#标签` 一键迁移到 frontmatter  
+> ⭐ **每日经验值计算** —— 根据时间记录、习惯打卡与自我评估计算每日经验值
 
 <!-- Badge Row 1: Core Info - 项目身份 -->
 [![Obsidian](https://img.shields.io/badge/Obsidian-Plugin-7C3AED?logo=obsidian)](https://obsidian.md)
@@ -46,8 +47,9 @@
 |---|---|---|---|
 | `delete-specified-content` | 删除指定内容 | 1.0.0 | 按正则或起止标记删除当前 Markdown 文件中的匹配内容 |
 | `move-tags-to-frontmatter` | Move Tags to Frontmatter | 1.0.0 | 将正文中的 `#标签` 移动到 frontmatter 字段 |
+| `daily-exp-score` | 每日经验值计算 | 1.0.0 | 根据日记中的时间记录、习惯打卡与自我评估计算每日经验值得分 |
 
-两款插件都支持 **左侧功能区图标** 和 **命令面板命令** 两种触发方式，并可在设置面板中自定义规则。😊
+三款插件都支持 **左侧功能区图标** 和 **命令面板命令** 两种触发方式，并可在设置面板中自定义规则。😊
 
 ## 快速开始
 
@@ -70,6 +72,8 @@ git clone https://github.com/author/repo.git my-obsidian-plugins
 cd my-obsidian-plugins/delete-specified-content
 # 或
 cd my-obsidian-plugins/move-tags-to-frontmatter
+# 或
+cd my-obsidian-plugins/daily-exp-score
 ```
 
 3. 安装依赖并构建：
@@ -112,6 +116,54 @@ npm run build
 - 去重处理，保留首次出现的顺序
 - 合并到 frontmatter 的指定字段，默认字段名为 `tags`
 - 自动清理正文中的标签文本及多余空行
+
+### ⭐ 每日经验值计算
+
+把日记变成一场可量化的「人生 RPG」！插件会读取你日记中的时间记录、习惯打卡和自我评估，自动计算今日经验值并写入 frontmatter。
+
+**六大评分维度：**
+
+| 维度 | 说明 | 数据来源 |
+|---|---|---|
+| 睡眠 | 根据睡眠时长与质量曲线评分 | 时间记录中匹配睡眠关键词的事件 |
+| 工作学习 | 根据投入时长与标准时长比值评分 | 时间记录中匹配工作学习关键词的事件 |
+| 兴趣爱好 | 根据爱好投入时长评分，可选择两种计算方式 | 时间记录中匹配兴趣爱好关键词的事件 |
+| 完整度 | 时间记录覆盖全天生活的比例 | 所有时间记录事件的总时长 |
+| 自我评估 | 直接从 frontmatter 读取手动评分 | YAML 前置元数据中的 `自我评分` 字段 |
+| 习惯打卡 | 统计 Callout 中已勾选习惯的分数 | `> [!info]+ 习惯打卡` 块中 `- [x] 🍭5` 格式的项目 |
+
+**时间记录格式：**
+
+```markdown
+## 今日时间记录
+
+00:30-07:30 【睡觉】
+[睡眠]
+
+09:00-12:00 【深度学习】
+[工作]
+
+14:00-15:30 【力量训练】
+[运动]
+```
+
+**习惯打卡格式：**
+
+```markdown
+> [!info]+ 习惯打卡
+> - [x] 早起 🍭2
+> - [x] 阅读 30 分钟 🍭3
+> - [ ] 冥想
+```
+
+计算完成后，插件会自动在日记 frontmatter 中写入：
+
+```yaml
+---
+自我评分: 8
+经验值: 82.35
+---
+```
 
 ## 使用示例
 
@@ -171,6 +223,42 @@ tags: [productivity, author]
 
 标签已自动进入 frontmatter，正文也被清理得干干净净！🎉
 
+### 示例 4：计算今日经验值
+
+在日记文件中写下时间记录和习惯打卡：
+
+```markdown
+---
+自我评分: 8
+---
+
+# 2026-07-10
+
+## 今日时间记录
+
+00:30-07:30 【睡觉】
+[睡眠]
+
+09:00-12:00 【工作】
+[工作]
+
+14:00-16:00 【兴趣爱好】
+[兴趣爱好]
+
+> [!info]+ 习惯打卡
+> - [x] 早起 🍭2
+> - [x] 阅读 🍭3
+```
+
+点击左侧的 ⭐ 图标或执行命令 **计算今日经验值**，插件会弹出通知显示得分明细，并自动更新 frontmatter：
+
+```yaml
+---
+自我评分: 8
+经验值: 75.42
+---
+```
+
 ## 目录结构
 
 ```text
@@ -191,6 +279,14 @@ my-obsidian-plugins/
 │   ├── version-bump.mjs               # 版本号自动更新脚本
 │   └── versions.json
 │
+├── daily-exp-score/                   # 每日经验值计算插件
+│   ├── main.ts                        # 评分计算逻辑
+│   ├── manifest.json
+│   ├── package.json
+│   ├── esbuild.config.mjs
+│   ├── styles.css                     # 设置面板样式
+│   └── versions.json
+│
 └── README.md                          # 本文件
 ```
 
@@ -209,6 +305,7 @@ my-obsidian-plugins/
 # 1. 进入插件目录
 cd delete-specified-content
 # 或 cd move-tags-to-frontmatter
+# 或 cd daily-exp-score
 
 # 2. 安装依赖
 npm install
@@ -235,10 +332,11 @@ npm run version
 
 ### English Version
 
-Welcome to **my-obsidian-plugins**! This is a personal collection of Obsidian plugins, featuring small but handy utilities to help you clean up notes and organize tags more efficiently. ✨
+Welcome to **my-obsidian-plugins**! This is a personal collection of Obsidian plugins, featuring small but handy utilities to help you clean up notes, organize tags, and quantify your daily growth. ✨
 
 > 🗑️ **Delete Specified Content** — batch delete content by regex or range markers  
-> 🏷️ **Move Tags to Frontmatter** — move inline `#tags` into frontmatter with one click
+> 🏷️ **Move Tags to Frontmatter** — move inline `#tags` into frontmatter with one click  
+> ⭐ **Daily Exp Score** — calculate daily exp score from time logs, habits, and self-evaluation
 
 ### Table of Contents
 
@@ -257,8 +355,9 @@ Welcome to **my-obsidian-plugins**! This is a personal collection of Obsidian pl
 |---|---|---|---|
 | `delete-specified-content` | Delete Specified Content | 1.0.0 | Delete matching content in the current Markdown file by regex or range markers |
 | `move-tags-to-frontmatter` | Move Tags to Frontmatter | 1.0.0 | Move inline `#tags` into a frontmatter field |
+| `daily-exp-score` | Daily Exp Score | 1.0.0 | Calculate daily exp score from diary time logs, habit tracking, and self-evaluation |
 
-Both plugins can be triggered via the **left sidebar ribbon icon** or the **command palette**, and support customization through their setting tabs. 😊
+All three plugins can be triggered via the **left sidebar ribbon icon** or the **command palette**, and support customization through their setting tabs. 😊
 
 ### Quick Start
 
@@ -281,6 +380,8 @@ git clone https://github.com/author/repo.git my-obsidian-plugins
 cd my-obsidian-plugins/delete-specified-content
 # or
 cd my-obsidian-plugins/move-tags-to-frontmatter
+# or
+cd my-obsidian-plugins/daily-exp-score
 ```
 
 3. Install dependencies and build:
@@ -323,6 +424,54 @@ Move scattered `#tags` from the note body into frontmatter, making it easier to 
 - Deduplicates tags while preserving first-occurrence order
 - Merges tags into a configurable frontmatter field, defaulting to `tags`
 - Cleans up tag text and excessive blank lines in the body
+
+#### ⭐ Daily Exp Score
+
+Turn your diary into a quantifiable "life RPG"! The plugin reads time logs, habit tracking, and self-evaluation from your diary and automatically calculates your daily exp score, writing it back to frontmatter.
+
+**Six scoring dimensions:**
+
+| Dimension | Description | Data Source |
+|---|---|---|
+| Sleep | Score based on sleep duration and quality curve | Time events matching sleep keywords |
+| Work/Study | Score based on the ratio of invested time to standard time | Time events matching work/study keywords |
+| Hobby | Score based on hobby time, with two calculation modes | Time events matching hobby keywords |
+| Completeness | Coverage ratio of time logs across the day | Total duration of all time events |
+| Self-Evaluation | Directly reads manual score from frontmatter | `自我评分` field in YAML frontmatter |
+| Habits | Sums scores of checked habits in a Callout | Items like `- [x] 🍭5` in `> [!info]+ 习惯打卡` |
+
+**Time log format:**
+
+```markdown
+## 今日时间记录
+
+00:30-07:30 【Sleep】
+[sleep]
+
+09:00-12:00 【Deep Work】
+[work]
+
+14:00-15:30 【Strength Training】
+[hobby]
+```
+
+**Habit tracking format:**
+
+```markdown
+> [!info]+ 习惯打卡
+> - [x] Wake up early 🍭2
+> - [x] Read 30 minutes 🍭3
+> - [ ] Meditation
+```
+
+After calculation, the plugin automatically writes the result to the diary frontmatter:
+
+```yaml
+---
+自我评分: 8
+经验值: 82.35
+---
+```
 
 ### Usage Examples
 
@@ -382,6 +531,42 @@ This is a book about  by .
 
 Tags are now in frontmatter, and the body is clean! 🎉
 
+#### Example 4: Calculate today's exp score
+
+Write time logs and habit tracking in your diary:
+
+```markdown
+---
+自我评分: 8
+---
+
+# 2026-07-10
+
+## 今日时间记录
+
+00:30-07:30 【Sleep】
+[sleep]
+
+09:00-12:00 【Work】
+[work]
+
+14:00-16:00 【Hobby】
+[hobby]
+
+> [!info]+ 习惯打卡
+> - [x] Wake up early 🍭2
+> - [x] Reading 🍭3
+```
+
+Click the ⭐ ribbon icon or run the command **计算今日经验值**. The plugin will show a notification with the score breakdown and update the frontmatter automatically:
+
+```yaml
+---
+自我评分: 8
+经验值: 75.42
+---
+```
+
 ### Project Structure
 
 ```text
@@ -402,6 +587,14 @@ my-obsidian-plugins/
 │   ├── version-bump.mjs               # Automatic version bump script
 │   └── versions.json
 │
+├── daily-exp-score/                   # Daily Exp Score plugin
+│   ├── main.ts                        # Scoring logic
+│   ├── manifest.json
+│   ├── package.json
+│   ├── esbuild.config.mjs
+│   ├── styles.css                     # Settings panel styles
+│   └── versions.json
+│
 └── README.md                          # This file
 ```
 
@@ -420,6 +613,7 @@ my-obsidian-plugins/
 # 1. Enter a plugin directory
 cd delete-specified-content
 # or cd move-tags-to-frontmatter
+# or cd daily-exp-score
 
 # 2. Install dependencies
 npm install

@@ -1,0 +1,16 @@
+# Compiled
+main.js
+*.map
+
+# Dependencies
+node_modules/
+
+# Obsidian
+.obsidian/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
